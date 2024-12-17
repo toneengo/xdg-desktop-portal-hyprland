@@ -8,6 +8,7 @@
 #include "../portals/Screencopy.hpp"
 #include "../portals/Screenshot.hpp"
 #include "../portals/GlobalShortcuts.hpp"
+#include "../portals/RemoteDesktop.hpp"
 #include "../helpers/Timer.hpp"
 #include "../shared/ToplevelManager.hpp"
 #include <gbm.h>
@@ -60,6 +61,7 @@ class CPortalManager {
         std::unique_ptr<CScreencopyPortal>      screencopy;
         std::unique_ptr<CScreenshotPortal>      screenshot;
         std::unique_ptr<CGlobalShortcutsPortal> globalShortcuts;
+        std::unique_ptr<CRemoteDesktopPortal>   remoteDesktop;
     } m_sPortals;
 
     struct {

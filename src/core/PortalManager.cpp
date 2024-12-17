@@ -64,6 +64,11 @@ void CPortalManager::onGlobal(uint32_t name, const char* interface, uint32_t ver
             (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &hyprland_global_shortcuts_manager_v1_interface, version)));
     }
 
+    else if (INTERFACE == zwlr_virtual_pointer_manager_v1_interface.name) {
+        m_sPortals.remoteDesktop = std::make_unique<CRemoteDesktopPortal>(makeShared<CCZwlrVirtualPointerManagerV1>(
+            (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &zwlr_virtual_pointer_manager_v1_interface, version)));
+    }
+
     else if (INTERFACE == hyprland_toplevel_export_manager_v1_interface.name) {
         m_sWaylandConnection.hyprlandToplevelMgr = makeShared<CCHyprlandToplevelExportManagerV1>(
             (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &hyprland_toplevel_export_manager_v1_interface, version));
@@ -416,6 +421,7 @@ void CPortalManager::startEventLoop() {
     m_sPortals.globalShortcuts.reset();
     m_sPortals.screencopy.reset();
     m_sPortals.screenshot.reset();
+    m_sPortals.remoteDesktop.reset();
     m_sHelpers.toplevel.reset();
 
     m_pConnection.reset();
